@@ -1,0 +1,30 @@
+{
+	"name": "remazing-webscraper",
+	"version": "0.0.1",
+	"description": "Simple web scraper using node and puppeteer",
+	"main": "app.js",
+	"scripts": {
+		"dev": "nodemon",
+		"test": "npm run test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/chrizzlekicks/remazing-webscraper.git"
+	},
+	"author": "Chris Schimetschka",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/chrizzlekicks/remazing-webscraper/issues"
+	},
+	"homepage": "https://github.com/chrizzlekicks/remazing-webscraper#readme",
+	"type": "module",
+	"dependencies": {
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"mongoose": "^6.8.0",
+		"puppeteer-core": "^19.4.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.20"
+	}
+}

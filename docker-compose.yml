@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  database:
+    image: mongo:4.4-focal
+    volumes:
+      - database:/data/db
+    ports:
+      - '27017:27017'
+    restart: unless-stopped
+
+  backend:
+    env_file:
+      - ./.env
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - database
+    environment:
+      - PORT=4000
+      - MONGODB_URI=mongodb://database:27017/scrape
+    volumes:
+      - ./:/server
+      - /server/node_modules
+    ports:
+      - '4000:4000'
+
+volumes:
+  database:
