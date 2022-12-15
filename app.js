@@ -40,7 +40,7 @@ const server = async () => {
 	try {
 		db(process.env.MONGODB_URI);
 		app.listen(port, () => {
-			console.log(`Example app listening on port ${port}`);
+			console.log(`Server listening on port ${port}`);
 		});
 	} catch (e) {
 		console.log(e);
