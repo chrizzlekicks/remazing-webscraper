@@ -1,17 +1,41 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
+import cors from 'cors';
 import db from './db/connect.js';
-import browserObj from './scraper/browser.js';
-import scrapeController from './scraper/scrapeController.js';
+import productRoutes from './routes/productRoutes.js';
+import notFound from './errors/notFound.js';
 
+/**
+ * activate express
+ */
 const app = express();
+
+/**
+ * middleware
+ */
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+
+/**
+ * routes
+ */
+app.use('api/v1/products', productRoutes);
+
+/**
+ * error handling for invalid routes
+ */
+app.use(notFound);
+
+/**
+ * define the port
+ */
 const port = process.env.PORT;
 
-const browserInstance = browserObj.configureBrowser();
-
-scrapeController(browserInstance);
-
+/**
+ * spin up the server
+ */
 const server = async () => {
 	try {
 		db(process.env.MONGODB_URI);
