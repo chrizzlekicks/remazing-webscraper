@@ -2,8 +2,8 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
 import db from './db/connect.js';
-import browserObj from './browser.js';
-import scrapeController from './scrapeController.js';
+import browserObj from './scraper/browser.js';
+import scrapeController from './scraper/scrapeController.js';
 
 const app = express();
 const port = process.env.PORT;
