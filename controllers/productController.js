@@ -1,5 +1,5 @@
 import Product from '../models/Product.js';
-import browserObj from '../scraper/browser';
+import browserObj from '../scraper/browser.js';
 import scrapeController from '../scraper/scrapeController.js';
 
 const getProducts = async (req, res) => {
@@ -13,7 +13,7 @@ const getProducts = async (req, res) => {
 const storeProducts = async (req, res) => {
 	const browserInstance = browserObj.configureBrowser();
 	scrapeController(browserInstance);
-	return res.status(201).send({ message: 'stored products in database' });
+	return res.status(201).send({ message: 'starts scraping and storing' });
 };
 
 export { getProducts, storeProducts };

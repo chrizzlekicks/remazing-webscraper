@@ -3,7 +3,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import db from './db/connect.js';
-import productRoutes from './routes/productRoutes.js';
+import productRouter from './routes/productRoutes.js';
 import notFound from './errors/notFound.js';
 
 /**
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 /**
  * routes
  */
-app.use('api/v1/products', productRoutes);
+app.use('/api/v1/products', productRouter);
 
 /**
  * error handling for invalid routes

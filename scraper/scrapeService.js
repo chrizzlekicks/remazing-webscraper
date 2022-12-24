@@ -1,4 +1,4 @@
-import Product from '../models/Product';
+import Product from '../models/Product.js';
 
 const scrapeService = {
 	url: 'https://www.amazon.de/s?k=kopfh%C3%B6rer&__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2ABEZIQ2Y0D99&sprefix=kopfh%C3%B6rer%2Caps%2C99&ref=nb_sb_noss_2',
