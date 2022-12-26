@@ -6,9 +6,10 @@ async function scrapePage(browserInstance: Promise<Browser>) {
 	try {
 		browser = await browserInstance;
 		await scrapeService.scraper(browser);
-	} catch (e) {
-		console.log('Could not resolve browser instance: ', e);
+	} catch (err: any) {
+		console.log('Could not resolve browser instance: ', err);
 	}
 }
 
-export default (browserInstance: any) => scrapePage(browserInstance);
+export default (browserInstance: Promise<Browser>) =>
+	scrapePage(browserInstance);

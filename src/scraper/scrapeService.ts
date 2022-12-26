@@ -1,4 +1,4 @@
-import { Browser } from 'puppeteer-core';
+import { Browser, Page } from 'puppeteer-core';
 import { ProductType } from '../@types/product.js';
 import Product from '../models/Product.js';
 
@@ -9,15 +9,15 @@ const scrapeService = {
 	 * @param {*} browser
 	 */
 	async scraper(browser: Browser): Promise<void> {
-		const page = await browser.newPage();
+		const page: Page = await browser.newPage();
 		console.log(`Loading ${this.url}...`);
 		await page.goto(this.url);
 
 		/**
-		 * collect all the links
+		 * collects all the links
 		 */
 		const urls: string[] = await page.evaluate(() => {
-			const links = [];
+			const links: string[] = [];
 			const collection = document.querySelectorAll(
 				'div.s-product-image-container.aok-relative.s-image-overlay-grey.s-text-center.s-padding-left-small.s-padding-right-small.s-flex-expand-height div.aok-relative span.rush-component a.a-link-normal.s-no-outline'
 			);
@@ -35,30 +35,30 @@ const scrapeService = {
 		const pagePromise = (link: string): Promise<ProductType> => {
 			return new Promise(async (resolve, reject) => {
 				let productObj = {} as ProductType;
-				let newPage = await browser.newPage();
+				let newPage: Page = await browser.newPage();
 				await newPage.goto(link);
 
 				productObj['title'] = await newPage.$eval(
 					'h1#title span#productTitle',
-					(el) => {
+					(el): string => {
 						return el.textContent.trim();
 					}
 				);
 				productObj['price'] = await newPage.$eval(
 					'span.a-price.aok-align-center.reinventPricePriceToPayMargin.priceToPay span.a-offscreen',
-					(el) => {
+					(el): string => {
 						return el.textContent;
 					}
 				);
 				productObj['numOfReviews'] = await newPage.$eval(
 					'a#acrCustomerReviewLink span#acrCustomerReviewText',
-					(el) => {
+					(el): string => {
 						return el.textContent;
 					}
 				);
 				productObj['avgRating'] = await newPage.$eval(
 					'.a-icon.a-icon-star-medium.averageStarRating span',
-					(el) => {
+					(el): string => {
 						return el.textContent;
 					}
 				);
@@ -72,8 +72,8 @@ const scrapeService = {
 		 * loop for visiting all collected pages and storing relevant data in the database
 		 */
 		for (let i = 0; i < urls.length; i++) {
-			let link = urls[i];
-			const pageData = await pagePromise(link);
+			let link: string = urls[i];
+			const pageData: ProductType = await pagePromise(link);
 			console.log(pageData);
 			await Product.create(pageData);
 		}
