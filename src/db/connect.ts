@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const db = (uri) => {
+const db = (uri: string): void => {
 	mongoose
 		.connect(uri, {
 			dbName: 'scrape',

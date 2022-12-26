@@ -1,12 +1,14 @@
+import { Browser } from 'puppeteer-core';
+import { ProductType } from '../@types/product.js';
 import Product from '../models/Product.js';
 
 const scrapeService = {
 	url: 'https://www.amazon.de/s?k=kopfh%C3%B6rer&__mk_de_DE=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=2ABEZIQ2Y0D99&sprefix=kopfh%C3%B6rer%2Caps%2C99&ref=nb_sb_noss_2',
 	/**
 	 * scrapes a web page
-	 * @param {*} browserObject
+	 * @param {*} browser
 	 */
-	async scraper(browser) {
+	async scraper(browser: Browser): Promise<void> {
 		const page = await browser.newPage();
 		console.log(`Loading ${this.url}...`);
 		await page.goto(this.url);
@@ -14,7 +16,7 @@ const scrapeService = {
 		/**
 		 * collect all the links
 		 */
-		const urls = await page.evaluate(() => {
+		const urls: string[] = await page.evaluate(() => {
 			const links = [];
 			const collection = document.querySelectorAll(
 				'div.s-product-image-container.aok-relative.s-image-overlay-grey.s-text-center.s-padding-left-small.s-padding-right-small.s-flex-expand-height div.aok-relative span.rush-component a.a-link-normal.s-no-outline'
@@ -30,9 +32,9 @@ const scrapeService = {
 		 * @param {*} link
 		 * @returns Promise
 		 */
-		const pagePromise = (link) => {
+		const pagePromise = (link: string): Promise<ProductType> => {
 			return new Promise(async (resolve, reject) => {
-				let productObj = {};
+				let productObj = {} as ProductType;
 				let newPage = await browser.newPage();
 				await newPage.goto(link);
 

@@ -1,7 +1,7 @@
-import puppeteer from 'puppeteer-core';
+import puppeteer, { Browser } from 'puppeteer-core';
 
-async function configureBrowser() {
-	let browser;
+async function configureBrowser(): Promise<Browser> {
+	let browser: Browser;
 	try {
 		console.log('Spinning up the browser...');
 		browser = await puppeteer.launch({

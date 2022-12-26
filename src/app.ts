@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-import express from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import db from './db/connect.js';
 import productRouter from './routes/productRoutes.js';
@@ -9,7 +9,7 @@ import notFound from './errors/notFound.js';
 /**
  * activate express
  */
-const app = express();
+const app: Express = express();
 
 /**
  * middleware
